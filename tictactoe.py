@@ -49,7 +49,7 @@ class Board():
 		self.max_player_turn = not self.max_player_turn
 		return self.board, self.max_player_turn
 
-	def get_possible_moves(self):
+	def get_possible_next_states(self):
 		possible_moves = list()
 		set_to = 1 if self.max_player_turn else -1
 
