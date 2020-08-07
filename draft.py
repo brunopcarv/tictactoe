@@ -7,31 +7,26 @@ from tkinter import *
 import numpy as np
 import math
 
-size_of_board = 600
-symbol_size = (size_of_board / 3 - size_of_board / 8) / 2
-symbol_thickness = 50
-symbol_X_color = '#EE4035'
-symbol_O_color = '#0492CF'
-Green_color = '#7BC043'
+BOARD_SIZE = 600
+SYMBOL_SIZE = (BOARD_SIZE / 3 - BOARD_SIZE / 8) / 2
+SYMBOL_THICKNESS = 50
+SYMBOL_X_COLOR = '#EE4035'
+SYMBOL_O_COLOR = '#0492CF'
+GREEN_COLOR = '#7BC043'
 
 
 class Board():
 	# Board object
-	def __init__(self, max_player_turn=True, start_board=np.zeros(shape=(3, 3))):
+	def __init__(self, max_player_turn=False, start_board=np.zeros(shape=(3, 3))):
 		self.board = start_board
 		self.max_player_turn = max_player_turn
 
 	def make_move(self, logical_position):
-		if self.max_player_turn: # True for x and False for o
-			self.board[logical_position[0],logical_position[1]] = 1
-		else:
+		if not self.max_player_turn: # True for X and False for O
 			self.board[logical_position[0],logical_position[1]] = -1
+		else:
+			self.board[logical_position[0],logical_position[1]] = 1
 		self.max_player_turn = not self.max_player_turn
-		# print("Possible moves: ", self.get_possible_moves())
-		# print("max_player_turn: ", self.max_player_turn)
-		# print("board: ", self.board)
-		# print("is_terminal: ", self.is_terminal())
-		# print("winner: ", self.get_winner())
 		return self.board, self.max_player_turn
 
 	def get_possible_moves(self):
@@ -104,6 +99,15 @@ class Agent():
 		_, best_move = self.minimax(self.current_board, self.max_player==self.my_turn)
 		return best_move
 
+class DummyAgent():
+	def __init__(self):
+		pass
+
+	def choose_move(self, board):
+		for ix, iy in np.ndindex(board.shape):
+			if board[ix, iy] == 0:
+				return ix, iy
+		return None
 
 
 class TicTacToe():
@@ -113,7 +117,7 @@ class TicTacToe():
 	def __init__(self):
 		self.window = Tk()
 		self.window.title('Tic-Tac-Toe')
-		self.canvas = Canvas(self.window, width=size_of_board, height=size_of_board)
+		self.canvas = Canvas(self.window, width=BOARD_SIZE, height=BOARD_SIZE)
 		self.canvas.pack()
 		# Input from user in form of clicks
 		self.window.bind('<Button-1>', self.click)
@@ -122,13 +126,9 @@ class TicTacToe():
 		self.player_X_turns = True
 		self.player_X_starts = True
 
-		self.board = Board(self.player_X_starts)
+		self.board = Board(max_player_turn=not self.player_X_starts)
 		self.board_status = self.board.board
 		self.reset_board = False
-		self.gameover = False
-		self.tie = False
-		self.X_wins = False
-		self.O_wins = False
 
 		self.X_score = 0
 		self.O_score = 0
@@ -139,10 +139,40 @@ class TicTacToe():
 
 	def initialize_board(self):
 		for i in range(2):
-			self.canvas.create_line((i + 1) * size_of_board / 3, 0, (i + 1) * size_of_board / 3, size_of_board)
+			self.canvas.create_line((i + 1) * BOARD_SIZE / 3, 0, (i + 1) * BOARD_SIZE / 3, BOARD_SIZE)
 
 		for i in range(2):
-			self.canvas.create_line(0, (i + 1) * size_of_board / 3, size_of_board, (i + 1) * size_of_board / 3)
+			self.canvas.create_line(0, (i + 1) * BOARD_SIZE / 3, BOARD_SIZE, (i + 1) * BOARD_SIZE / 3)
+
+	def play_again(self):
+		self.initialize_board()
+		self.player_X_starts = not self.player_X_starts
+		self.board = Board(max_player_turn=not self.player_X_starts, start_board=np.zeros(shape=(3, 3)))
+		self.board_status = self.board.board
+		self.reset_board = False
+		if not self.player_X_starts:
+			self.agent_play_dummy()
+
+	def agent_play_dummy(self):
+		if not self.board.is_terminal():
+			# Agent turn
+			agent = DummyAgent()
+			agent_move = agent.choose_move(self.board_status)
+			if not agent_move == None:
+				self.draw_O(agent_move)
+				self.board_status, self.player_X_turns = self.board.make_move(agent_move)
+				self.canvas.update()
+
+	def agent_play(self):
+		if not self.board.is_terminal():
+			# Agent turn
+			agent = Agent(self.board_status, max_player=True, my_turn=True)
+			logical_position = agent.get_best_move()
+			self.draw_O(logical_position)
+			self.canvas.update()
+			self.board_status, self.player_X_turns = self.board.make_move(logical_position)
+
+
 
 	# ------------------------------------------------------------------
 	# Drawing Functions:
@@ -154,19 +184,52 @@ class TicTacToe():
 		# logical_position = grid value on the board
 		# grid_position = actual pixel values of the center of the grid
 		grid_position = self.convert_logical_to_grid_position(logical_position)
-		self.canvas.create_oval(grid_position[0] - symbol_size, grid_position[1] - symbol_size,
-								grid_position[0] + symbol_size, grid_position[1] + symbol_size, width=symbol_thickness,
-								outline=symbol_O_color)
+		self.canvas.create_oval(grid_position[0] - SYMBOL_SIZE, grid_position[1] - SYMBOL_SIZE,
+								grid_position[0] + SYMBOL_SIZE, grid_position[1] + SYMBOL_SIZE, width=SYMBOL_THICKNESS,
+								outline=SYMBOL_O_COLOR)
 
 	def draw_X(self, logical_position):
 		grid_position = self.convert_logical_to_grid_position(logical_position)
-		self.canvas.create_line(grid_position[0] - symbol_size, grid_position[1] - symbol_size,
-								grid_position[0] + symbol_size, grid_position[1] + symbol_size, width=symbol_thickness,
-								fill=symbol_X_color)
-		self.canvas.create_line(grid_position[0] - symbol_size, grid_position[1] + symbol_size,
-								grid_position[0] + symbol_size, grid_position[1] - symbol_size, width=symbol_thickness,
-								fill=symbol_X_color)
+		self.canvas.create_line(grid_position[0] - SYMBOL_SIZE, grid_position[1] - SYMBOL_SIZE,
+								grid_position[0] + SYMBOL_SIZE, grid_position[1] + SYMBOL_SIZE, width=SYMBOL_THICKNESS,
+								fill=SYMBOL_X_COLOR)
+		self.canvas.create_line(grid_position[0] - SYMBOL_SIZE, grid_position[1] + SYMBOL_SIZE,
+								grid_position[0] + SYMBOL_SIZE, grid_position[1] - SYMBOL_SIZE, width=SYMBOL_THICKNESS,
+								fill=SYMBOL_X_COLOR)
 
+
+	def display_gameover(self):
+
+		if self.board.get_winner() == -1:
+			self.X_score += 1
+			text = 'Winner: Player 1 (X)'
+			color = SYMBOL_X_COLOR
+		elif self.board.get_winner() == 1:
+			self.O_score += 1
+			text = 'Winner: Player 2 (O)'
+			color = SYMBOL_O_COLOR
+		else:
+			self.tie_score += 1
+			text = 'Its a tie'
+			color = 'gray'
+
+		self.canvas.delete("all")
+		self.canvas.create_text(BOARD_SIZE / 2, BOARD_SIZE / 3, font="cmr 60 bold", fill=color, text=text)
+
+		score_text = 'Scores \n'
+		self.canvas.create_text(BOARD_SIZE / 2, 5 * BOARD_SIZE / 8, font="cmr 40 bold", fill=GREEN_COLOR,
+								text=score_text)
+
+		score_text = 'Player 1 (X) : ' + str(self.X_score) + '\n'
+		score_text += 'Player 2 (O): ' + str(self.O_score) + '\n'
+		score_text += 'Tie                    : ' + str(self.tie_score)
+		self.canvas.create_text(BOARD_SIZE / 2, 3 * BOARD_SIZE / 4, font="cmr 30 bold", fill=GREEN_COLOR,
+								text=score_text)
+		self.reset_board = True
+
+		score_text = 'Click to play again \n'
+		self.canvas.create_text(BOARD_SIZE / 2, 15 * BOARD_SIZE / 16, font="cmr 20 bold", fill="gray",
+								text=score_text)
 
 
 	# ------------------------------------------------------------------
@@ -176,11 +239,11 @@ class TicTacToe():
 
 	def convert_logical_to_grid_position(self, logical_position):
 		logical_position = np.array(logical_position, dtype=int)
-		return (size_of_board / 3) * logical_position + size_of_board / 6
+		return (BOARD_SIZE / 3) * logical_position + BOARD_SIZE / 6
 
 	def convert_grid_to_logical_position(self, grid_position):
 		grid_position = np.array(grid_position)
-		return np.array(grid_position // (size_of_board / 3), dtype=int)
+		return np.array(grid_position // (BOARD_SIZE / 3), dtype=int)
 
 	def is_grid_occupied(self, logical_position):
 		if self.board_status[logical_position[0]][logical_position[1]] == 0:
@@ -188,26 +251,29 @@ class TicTacToe():
 		else:
 			return True
 
+	# Mouse click event handler
 	def click(self, event):
 		grid_position = [event.x, event.y]
 		logical_position = self.convert_grid_to_logical_position(grid_position)
-		# if self.player_X_turns:
-		if not self.is_grid_occupied(logical_position):
-			self.draw_X(logical_position)
-			self.board_status, self.player_X_turns = self.board.make_move(logical_position)
 
-			# Agent turn
-			agent = Agent(self.board_status, max_player=True, my_turn=True)
-			logical_position = agent.get_best_move()
-			self.draw_O(logical_position)
-			self.board_status, self.player_X_turns = self.board.make_move(logical_position)
+		if not self.reset_board:
+			if not self.is_grid_occupied(logical_position):
 
-		# else:
-		# 	if not self.is_grid_occupied(logical_position):
-		# 		self.draw_O(logical_position)
-		# 		self.board_status, self.player_X_turns = self.board.make_move(logical_position)
+				# User turn
+				self.draw_X(logical_position)
+				self.canvas.update()
+				self.board_status, self.player_X_turns = self.board.make_move(logical_position)
 
+				# Agent turn
+				self.agent_play()
 
+			# Check if game is concluded
+			if self.board.is_terminal():
+				self.display_gameover()
+
+		else:  # Play Again
+			self.canvas.delete("all")
+			self.play_again()
 
 
 
