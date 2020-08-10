@@ -27,11 +27,11 @@ class DummyAgent():
 	# ------------------------------------------------------------------
 	def __init__(self):
 		pass
-	def choose_move(self, board):
-		for ix, iy in np.ndindex(board.shape):
-			if board[ix, iy] == 0:
-				return ix, iy
-		return None
+	def choose_move(self, current_board):
+		import random
+		_board = Board(True, current_board)
+		possible_moves = _board.get_possible_next_states()
+		return random.choice(possible_moves)[0]
 
 class Board():
 	# ------------------------------------------------------------------
