@@ -15,8 +15,28 @@ SYMBOL_O_COLOR = '#0492CF'
 GREEN_COLOR = '#7BC043'
 
 
+class Agent():
+	# ------------------------------------------------------------------
+	# Agent to be coded:
+	# ------------------------------------------------------------------
+	pass
+
+class DummyAgent():
+	# ------------------------------------------------------------------
+	# Dummy agent
+	# ------------------------------------------------------------------
+	def __init__(self):
+		pass
+	def choose_move(self, current_board):
+		import random
+		_board = Board(True, current_board)
+		possible_moves = _board.get_possible_next_states()
+		return random.choice(possible_moves)[0]
+
 class Board():
-	# Board object
+	# ------------------------------------------------------------------
+	# Board object:
+	# ------------------------------------------------------------------
 	def __init__(self, max_player_turn=False, start_board=np.zeros(shape=(3, 3))):
 		self.board = start_board
 		self.max_player_turn = max_player_turn
@@ -29,7 +49,7 @@ class Board():
 		self.max_player_turn = not self.max_player_turn
 		return self.board, self.max_player_turn
 
-	def get_possible_moves(self):
+	def get_possible_next_states(self):
 		possible_moves = list()
 		set_to = 1 if self.max_player_turn else -1
 
@@ -72,47 +92,9 @@ class Board():
 	def is_terminal(self):
 		return self.get_winner() != None
 
-class Agent():
-	# Computer agent to play against user
-	def __init__(self, current_board, max_player=True, my_turn=True):
-		self.max_player = max_player
-		self.my_turn = my_turn
-		self.current_board = current_board
-
-
-	def minimax(self, current_board, max_turn):
-		board = Board(max_turn, current_board)
-		if board.is_terminal():
-			return board.get_winner(), None
-		if max_turn: 
-			value = -math.inf
-			for move, child_board in board.get_possible_moves():
-				value = max(value, self.minimax(child_board, False)[0])
-			return value, move
-		else:
-			value = math.inf
-			for move, child_board in board.get_possible_moves():
-				value = max(value, self.minimax(child_board, True)[0])
-			return value, move
-
-	def get_best_move(self):
-		_, best_move = self.minimax(self.current_board, self.max_player==self.my_turn)
-		return best_move
-
-class DummyAgent():
-	def __init__(self):
-		pass
-
-	def choose_move(self, board):
-		for ix, iy in np.ndindex(board.shape):
-			if board[ix, iy] == 0:
-				return ix, iy
-		return None
-
-
 class TicTacToe():
 	# ------------------------------------------------------------------
-	# Initialization Functions:
+	# Initialization, finalization, and playing functions:
 	# ------------------------------------------------------------------
 	def __init__(self):
 		self.window = Tk()
@@ -162,16 +144,6 @@ class TicTacToe():
 				self.draw_O(agent_move)
 				self.board_status, self.player_X_turns = self.board.make_move(agent_move)
 				self.canvas.update()
-
-	def agent_play(self):
-		if not self.board.is_terminal():
-			# Agent turn
-			agent = Agent(self.board_status, max_player=True, my_turn=True)
-			logical_position = agent.get_best_move()
-			self.draw_O(logical_position)
-			self.canvas.update()
-			self.board_status, self.player_X_turns = self.board.make_move(logical_position)
-
 
 
 	# ------------------------------------------------------------------
@@ -251,6 +223,7 @@ class TicTacToe():
 		else:
 			return True
 
+
 	# Mouse click event handler
 	def click(self, event):
 		grid_position = [event.x, event.y]
@@ -265,7 +238,7 @@ class TicTacToe():
 				self.board_status, self.player_X_turns = self.board.make_move(logical_position)
 
 				# Agent turn
-				self.agent_play()
+				self.agent_play_dummy()
 
 			# Check if game is concluded
 			if self.board.is_terminal():
