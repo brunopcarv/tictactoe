@@ -1,4 +1,4 @@
-Tictactoe - AI
+Tic Tac Toe - AI
 ==============
 Jogo da velha - IA
 ------------------
