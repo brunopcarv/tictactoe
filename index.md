@@ -2,7 +2,7 @@
 ## Bem vindo à comunidade Code Together!
 
 
-<iframe src="https://trinket.io/embed/python/280b925093" width="650" height="1200" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<iframe src="https://trinket.io/embed/python/280b925093" width="1200" height="650" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
 
 
 You can use the [editor on GitHub](https://github.com/brunopcarv/tictactoe/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
