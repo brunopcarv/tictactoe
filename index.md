@@ -5,7 +5,6 @@
 <iframe src="https://trinket.io/embed/python/3863e0c04c?outputOnly=true&runOption=run&start=result" width="600" height="720" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
 
 
-
 You can use the [editor on GitHub](https://github.com/brunopcarv/tictactoe/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
