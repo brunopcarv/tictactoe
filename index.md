@@ -4,7 +4,8 @@
 
 
 
-<iframe src="https://trinket.io/embed/python/280b925093?outputOnly=true&runOption=run" width="750" height="750" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<iframe src="https://trinket.io/embed/python/280b925093?outputOnly=true&runOption=run&start=result" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+
 
 
 
