@@ -2,7 +2,7 @@
 ## Bem vindo à comunidade Code Together!
 
 
-<iframe src="https://trinket.io/embed/python/3863e0c04c?outputOnly=true&runOption=run&start=result" width="625" height="640" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<iframe src="https://trinket.io/embed/python/3863e0c04c?outputOnly=true&runOption=run&start=result" width="622" height="660" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
 
 
 
