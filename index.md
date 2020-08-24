@@ -3,7 +3,9 @@
 
 
 
-<iframe src="https://trinket.io/python/280b925093?runOption=run" width="1200" height="650" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+
+<iframe src="https://trinket.io/embed/python/280b925093?outputOnly=true&runOption=run" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+
 
 
 You can use the [editor on GitHub](https://github.com/brunopcarv/tictactoe/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
