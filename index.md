@@ -1,4 +1,9 @@
-## Welcome to GitHub Pages
+## Welcome to the Code Together community!
+## Bem vindo à comunidade Code Together!
+
+
+<iframe src="https://trinket.io/embed/python/280b925093" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+
 
 You can use the [editor on GitHub](https://github.com/brunopcarv/tictactoe/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
