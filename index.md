@@ -6,7 +6,6 @@
 <iframe height="600" width="700" src="https://repl.it/@brunopcarv/tictactoe?lite=true&outputonly=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
 
-sa
 You can use the [editor on GitHub](https://github.com/brunopcarv/tictactoe/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
