@@ -1,5 +1,5 @@
 ## Bem vindo à comunidade Code Together!
-## Welcome to the Code Together community!
+_## Welcome to the Code Together community!_
 
 Confiram abaixo o resultado do código produzido pela nossa comunidade Code Together!
 Estamos bem orgulhosos de ter conseguido implementar tanto o algoritmo Minimax quanto o Alpha-Beta Pruning. Obviamente o segundo é mais rápido pois elimina galhos da árvore de busca sempre que possível.
