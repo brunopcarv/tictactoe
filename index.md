@@ -14,7 +14,9 @@ Now, try to beat our computer at Tic Tac Toe!
 <iframe height="600" width="700" src="https://repl.it/@brunopcarv/tictactoe?lite=true&outputonly=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
 
-Confira nossa comunidade [Code Togehter](http://b.link/codetogether). Nos vemos no próximo projeto!
-You can check our community at [Code Togehter](http://b.link/codetogether). See you in the next programming assignment! 
+
+Confira nossa comunidade [Code Togehter](http://b.link/codetogether) e a nossa página no [Instagram](https://www.instagram.com/brunocoding/). Nos vemos no próximo projeto!
+
+You can check our community at [Code Togehter](http://b.link/codetogether) and our page on [Instagram](https://www.instagram.com/brunocoding/). See you in the next programming assignment! 
 
 Bruno Coding.
