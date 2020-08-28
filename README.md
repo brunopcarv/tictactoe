@@ -8,7 +8,7 @@ and adpted by [brunopcarv](http://github.com/brunopcarv).
 The objective is the implementation of an inteligent agent that plays against the user using
 techniques such as minimax and alpha-beta pruning algorithms.
 
-In the main file **tictactoe.py** you can implement your agent as you wish.
+In the main file **main.py** you can implement your agent as you wish.
 
 
 
@@ -17,5 +17,5 @@ e adaptada por [brunopcarv](http://github.com/brunopcarv).
 O objetivo deste projeto é a implementação um agente que jogue contra o usuário utilizando
 técnicas de inteligência artificial como os algoritmos minimax ou alpha-beta pruning.
 
-No arquivo principal **tictactoe.py** você poderá implementar o seu agente como bem entender.
+No arquivo principal **main.py** você poderá implementar o seu agente como bem entender.
 
