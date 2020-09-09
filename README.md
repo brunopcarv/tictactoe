@@ -4,7 +4,7 @@ Jogo da velha - IA
 ------------------
 
 
-CHECK THE RESULT IN [tictactoe](https://brunopcarv.github.io/tictactoe/)
+**Check the result in [tictactoe](https://brunopcarv.github.io/tictactoe/)**
 
 
 This repository starts with a implementation of the Tic Tac Toe game designed by [aqeelanwar](http://github.com/aqeelanwar)
@@ -15,7 +15,8 @@ techniques such as minimax and alpha-beta pruning algorithms.
 In the main file **main.py** you can implement your agent as you wish.
 
 
-CONFIRA O RESULTADO [AQUI](https://brunopcarv.github.io/tictactoe/)
+
+**Confira o resultado [aqui](https://brunopcarv.github.io/tictactoe/)**
 
 Este repositório inicia com uma implementação do jogo da velha por [aqeelanwar](http://github.com/aqeelanwar)
 e adaptada por [brunopcarv](http://github.com/brunopcarv).
